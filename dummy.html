@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+      integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+      crossorigin="anonymous"
+    />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"> -->
+    <title>Roman Numeral converter Īī</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="header">ROMAN NUMERALS CONVERTER</h1>
+      <button class="mode">Dark mode</button>
+      <div class="section1 ">
+        <button class="pointer hidden">
+          <i class="fas fa-arrow-down"></i>
+        </button>
+
+        <div class="container_for_row1">
+          <div class="row1 hidden">
+            <ul class="list1">
+              <!-- <li class="items" id="item1">
+                <div class="top-button">
+                  <button class="closer"><i class="fas fa-times"></i></button>
+                </div>
+                <p class="question">value</p>
+                <p class="answer">ans:</p>
+                <p class="time">time</p>
+                <span>value</span>
+              </li> -->
+              <!-- <li class="items" id="item2">
+                <div class="top-button">
+                  <button class="closer"><i class="fas fa-times"></i></button>
+                </div>
+                <p class="question">value</p>
+                <p class="answer">ans:</p>
+                <span>value</span>
+                <p class="time">time</p>
+              </li> -->
+              <!-- <li class="items" id="item3">
+                <div class="top-button">
+                  <button class="closer"><i class="fas fa-times"></i></button>
+                </div>
+                <p class="question">value</p>
+                <p class="answer">ans:</p>
+                <span>value</span>
+                <p class="time">time</p>
+              </li> -->
+            </ul>
+          </div>
+        </div>
+
+        <div class="row2">
+          <div class="extra"></div>
+          <form>
+            <label for="collector"></label>
+            <input
+              type="text"
+              name="collector"
+              placeholder="type Numeral or Number"
+            />
+          </form>
+          <div class="top-button">
+            <button class="opener"><i class="fas fa-bars"></i></button>
+          </div>
+          <div class="top-top hidden"></div>
+
+          <div class="err hidden">
+            <h4>This is it</h4>
+          </div>
+          <div class="ans hidden">
+            <!-- <h1></h1> -->
+          </div>
+          <div class="button-container">
+            <button class="functions cancel">
+              <div class="top-top hidden" id="monitor"></div>
+              Remove
+            </button>
+            <button class="functions reset">Reset</button>
+            <button class="functions copy">Copy</button>
+          </div>
+        </div>
+      </div>
+      <div class="section2 hidden ">
+        <button class="pointer">
+          <i class="fas fa-arrow-up"></i>
+        </button>
+        <div class="row3" id="row3">
+          <ul class="list2">
+            <!-- <li class="items2">
+              <div class="top-button">
+                <button class="closer"><i class="fas fa-times"></i></button>
+              </div>
+              <p class="question">value</p>
+              <p class="answer">ans:</p>
+              <p class="time">time</p>
+              <span>value</span>
+            </li> -->
+            <!-- <li class="items2">
+              <div class="top-button">
+                <button class="closer"><i class="fas fa-times"></i></button>
+              </div>
+              <p class="question">value</p>
+              <p class="answer">ans:</p>
+              <span>value</span>
+              <p class="time">time</p>
+            </li>
+            <li class="items2">
+              <div class="top-button">
+                <button class="closer"><i class="fas fa-times"></i></button>
+              </div>
+              <p class="question">value</p>
+              <p class="answer">ans:</p>
+              <span>value</span>
+              <p class="time">time</p>
+            </li> -->
+          </ul>
+        </div>
+      </div>
+      <div class="section3 dont_show">
+        <div class="extra_"></div>
+        <div class="button-container2">
+          <button class="go_back">
+            <i class="fas fa-arrow-left"> </i>
+          </button>
+        </div>
+        <div class="phase1 hidden ">
+          <div class="title t1">Solution</div>
+        <div class="heading t1">XXIX</div>
+        <div class="content t1">( XX ) + ( IX )</div>
+        <div class="content t1">( X + X ) + ( I + X )</div>
+        <div class="content t1">X=10 , IX=9</div>
+        <div class="content t1">( 10 + 10 ) + ( 9 )</div>
+        <div class="displaying t1">
+          <div class="circle_holder">
+            <div class="circle c1"></div>
+            <div class="circle c2"></div>
+            <div class="circle c3"></div>
+          </div>
+          <div class="The_ans t1">29</div>
+  </div>
+
+        </div>
+
+
+        <div class="phase2 hidden">
+
+          <div class="title t2">Solution</div>
+          <div class="heading t2">0</div>
+          <p class="content t2">Zero in Roman numeral was the Latin word 'nulla'.
+          </p>
+          
+          <div class="displaying t2">
+            <div class="circle_holder">
+              <div class="circle c1"></div>
+              <div class="circle c2"></div>
+              <div class="circle c3"></div>
+            </div>
+            <p class="The_ans t1">Nulla</p>
+  </div>
+        </div>
+        <div class="phase0_2 hidden">
+
+          <div class="title t2">Solution</div>
+          <span class=" placeholding animated-bg one ">&nbsp;</span>
+          <span class=" placeholding animated-bg  two">&nbsp;</span>
+          
+          <span class="placeholding animated-bg four">&nbsp;</span>
+
+      </div>
+        
+        <div class="phase0_1  hidden">
+          <div class="title t1">Solution</div>
+          <span class=" placeholding animated-bg one t1 ">&nbsp;</span>
+          <span class=" placeholding animated-bg  two t1">&nbsp;</span>
+          <span class=" placeholding animated-bg  two1 t1">&nbsp;</span>
+          <span class=" placeholding animated-bg three t1">&nbsp;</span>
+          <span class="placeholding animated-bg four t1">&nbsp;</span>
+
+
+
+
+      
+        
+      
+    </div>
+
+
+    <script src="script.js"></script>
+  </body>
+</html>

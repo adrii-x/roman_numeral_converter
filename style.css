@@ -14,6 +14,7 @@
   --li-7:rgba(22, 22, 22, 0.3);
   --li-8:rgb(248, 241, 248);
   --shadow2:rgb(226, 196, 248);
+  --modifier:rgb(226, 196, 248)
 
   
 }
@@ -28,6 +29,7 @@ html.dark{
   --li-7:rgba(225, 225, 225, 0.5);
   --li-8:rgba(22, 22, 22, 0.3);
   --shadow2: white;
+  --modifier:white
   
   
 }
@@ -376,6 +378,16 @@ html.dark .section3 .heading{
 
     
   }
+
+  .section3 .content.smaller_text{
+    font-size: 13px;
+
+  }
+  .section3 .content.small_text{
+    font-size: 15px;
+    
+  }
+
   .section3 .content.t2{
     margin-left: 10px ;
     margin-right: 10px ;
@@ -395,6 +407,8 @@ html.dark .section3 .heading{
 
   }
 
+  
+
  .section3 .bordermaker2{
     border-top: 1px solid var(--text-1);
 
@@ -404,6 +418,11 @@ html.dark .section3 .heading{
   border-top: 1px solid var(--text-1);
   margin: 1px;
   
+}
+
+.section3 .The_ans .bordermaker2{
+  border-top: 3px solid  white;
+  margin: 1px
 }
 
   .displaying{
@@ -697,29 +716,41 @@ html.dark .section3 .heading{
     color: var(--text-1);
     font-weight: 700;
     
-    padding: 0px;
+    padding: 2px;
     position: absolute;
     top:5%;
     left: 50%;
     transform: translateX(-50%);
+    
   }
 
   .row1 ul li .question span{
     background-color: var(--main-3);
-    border-radius: 1px;
+    border-radius: 2px;
+    font-size: 12px; 
+    margin-right: -1.0px;
+    
+  }
+
+  .row1 ul li .question .small_text{
     font-size: 11px; 
-    margin-right: -3.1px;
+  }
+
+  .row1 ul li .question .smaller_text{
+    font-size: 9px; 
+    
+    
   }
 
   .row1 ul li .answer{
     
-    margin: 5px ;
+    margin: 5px;
     margin-top: 47px;
     text-align: center;
     font-size: 12px;
     font-family: 'Bricolage Grotesque', sans-serif;
     font-weight: 900;
-    color: var();
+    
 
   }
 
@@ -728,14 +759,38 @@ html.dark .section3 .heading{
     background-color: var(--fade-5);
     margin-top: 16px;
     
-    padding: 3px;
+    padding: 1px 0px;
     border-radius: 4px;
     font-size: 13px;
     font-family: 'Bricolage Grotesque', sans-serif;
     font-weight: 900;
-    /* font-weight: 550; */
+    padding-left: 1px;
+    padding-right: 1px; 
+    font-weight: 550px;
     
   }
+
+  .row1 ul li span.small_text{
+    font-size: 11px; 
+    
+  }
+  .row1 ul li span.smaller_text{
+    font-size: 9px;
+    
+  }
+
+
+
+  .row3 ul li  span.first{
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    padding-right: 0.5px;
+    padding-left: 0.5px ;
+    
+  }
+  
 
   .row1 ul li  span.first{
     border-top-left-radius: 4px;
@@ -743,8 +798,10 @@ html.dark .section3 .heading{
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     padding-right: 0.5px;
+    margin-left: 0.5px ;
     
   }
+
 
   .row1 ul li  span.normally{
     border-radius: 0;
@@ -763,10 +820,7 @@ html.dark .section3 .heading{
     
   }
   .row1 ul li  span.bordermaker2{
-border-top: solid 3px var(--black-6);
-padding-top: 0.1px;
-
-    
+    border-top: solid 3px var(--black-6); 
   }
 
 
@@ -1135,15 +1189,25 @@ padding-top: 0.1px;
     padding: 0px;
     position: absolute;
     top:1%;
-    left: 47%;
+    left: 50%;
     transform: translateX(-50%);
   }
 
   .row3 ul li .question span{
     background-color: var(--main-3);
-    border-radius: 4px;
-    font-size: 11px; 
-    margin-right: -2.5px;
+    border-radius: 0px;
+    font-size: 12px; 
+    margin-right: -1.0px;
+    font-weight: bolder;
+  }
+  .row3 ul li .question span.small_text{
+    font-size: 10px; 
+    
+    
+  }
+  .row3 ul li .question span.smaller_text{
+    font-size: 9px;
+    
   }
 
 
@@ -1162,13 +1226,22 @@ padding-top: 0.1px;
   .row3 ul li  span {
     text-transform: uppercase ;
     background-color: var(--fade-5);
-    padding: 2px 2px;
+    padding: 0.5px 0.5px;
     border-radius: 2px;
     font-size: 12px;
     font-family: 'Bricolage Grotesque', sans-serif;
     font-weight: 900;
     padding-bottom: 3px;
     padding-top: 0px;
+    
+  }
+
+  .row3 ul li span.small_text{
+    font-size: 9.5px;
+
+  }
+  .row3 ul li span.smaller_text{
+    font-size: 8px;
     
   }
   .row3 ul li  span.bordermaker2 {
@@ -1333,7 +1406,7 @@ padding-top: 0.1px;
 
   .row2 span{
     
-    font-size: 35px;
+    font-size: 30px;
     
 
   }
@@ -1382,6 +1455,14 @@ padding-top: 0.1px;
 
     letter-spacing: 1px;
   }
+  .section3 .content.smaller_text{
+    font-size: 11px;
+
+  }
+  .section3 .content.small_text{
+    font-size: 13px;
+    
+  }
 
   .displaying{
     font-size: 26px;
@@ -1399,10 +1480,10 @@ padding-top: 0.1px;
 }
 @keyframes shadow {
   0%{
-    box-shadow: 0px 5px 5px 5px rgba(22, 22, 22, 0.3), 3px 4px 5px  2px var(--fade-5);
+    box-shadow: 0px 5px 5px 5px rgba(22, 22, 22, 0.3), 3px 4px 5px  2px var(--modifier);
   }
   100%{
-    box-shadow: -5px 0px 5px 5px rgba(22, 22, 22, 0.3), -4px -3px 6px  2px var(--fade-5);  
+    box-shadow: -4px -5px 5px 3px var(--main-3), -3px -3px 6px 6px var(--modifier);;  
   }
   
   
@@ -1410,14 +1491,15 @@ padding-top: 0.1px;
 
 @keyframes unshadow {
   0%{
-    box-shadow: -5px 0px 5px 5px rgba(22, 22, 22, 0.3), -4px -3px 6px  2px var(--fade-5);   
+    box-shadow: -5px 0px 5px 5px rgba(22, 22, 22, 0.3), -4px -3px 6px  2px var(--modifier);   
   }
   20%{
-    box-shadow: 0px 5px 5px 5px rgba(22, 22, 22, 0.3), 3px 4px 5px  2px var(--fade-5);
+    box-shadow: 0px 5px 5px 5px rgba(22, 22, 22, 0.3), 3px 4px 5px  2px var(--modifier);
   }
 
   100%{
-    box-shadow: 0px 5px 5px 5px rgba(22, 22, 22, 0.3), 3px 4px 5px  2px var(--fade-5);
+    box-shadow: 4px 5px 5px 3px var(--main-3), 3px 3px 6px 6px var(--modifier);;
+    
   }
   
   

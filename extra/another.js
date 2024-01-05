@@ -130,12 +130,7 @@ function time_regulator2(time_element) {
 
         let actual_time = time_list[time_list.length-1] - time_list[0]
 
-        // for (let t = 0; t < time_list.length; t++) {
-        //     if ((time_list[t] === time_list[0] || time_list[t] === time_list[time_list.length-1])) {
-        //         time_reducer.push(time_list[t]) 
-        //     }
-             
-        // }
+
         if (actual_time >= 172800) {
             time_element.innerHTML ='days ago'
             
@@ -217,11 +212,6 @@ function time_regulator3(time_element) {
         
     }, 1000);
 }
-
-
-// time_regulator1()
-
-
 
 
 
@@ -1017,7 +1007,7 @@ function item_creator(info) {
 
     
 
-     made = document.createElement('li')
+    made = document.createElement('li')
     made.classList.add('item')
 
     made2 = document.createElement('li')

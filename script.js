@@ -55,6 +55,16 @@ let stopper = -1
 let example2 = ''
 let signaler = ''
 let clicked = 0
+let clicker = 1;
+let marker_1 = 1;
+let marker_2 = 1;
+let marker_3 = 1;
+let marker_1_2nd = 1;
+let marker_2_2nd = 1;
+let marker_3_2nd = 1;
+let marker_1_3rd = 1;
+let marker_2_3rd = 1;
+let marker_3_3rd = 1;
 let w = 0
 let numbered=1
 let subtracted
@@ -72,7 +82,26 @@ let sections = []
 let amount_of_element = []
 
 
+function mode_reseseter() {
+    htmll= document.querySelector('html')
+    let retrieved_mode = JSON.parse(localStorage.getItem('mode_stored'))
+    if (retrieved_mode) {
+        console.log(retrieved_mode);  
 
+        if (retrieved_mode ==='Dark Mode') {
+            mode.innerHTML = 'Light Mode';
+            htmll.classList.add('dark')
+            
+        }
+        else{
+            mode.innerHTML = 'Dark Mode';
+            htmll.classList.remove('dark')
+        }
+    }
+}
+
+
+mode_reseseter()
 
 
 
@@ -85,7 +114,13 @@ function activity_listener() {
         activities[0] = 'hidden'
     }
     if (!(ans.classList.contains('hidden'))) {
-        activities[1] = ans.innerHTML
+       
+            activities[1] = ans.innerHTML
+            console.log(ans);
+
+            console.log(activities[1]);
+        
+        
         
     }
     else{
@@ -337,12 +372,40 @@ function update_mode() {
   localStorage.setItem('mode_stored',JSON.stringify(mode_stored))
   }
 
-  function Number_of_items(number_of_items) {
+
+
+function Number_of_items(number_of_items) {
     console.log(number_of_items);
     localStorage.setItem('number_of_items',JSON.stringify(number_of_items))
 
  
   }
+
+function lists_2() {
+    let l_box = []
+    let lii = list__2.querySelectorAll('.item')
+    lii.forEach(l => {
+        l_box.push(l.children) 
+    });
+    
+    localStorage.setItem('list__2',JSON.stringify(l_box))
+
+ 
+}
+
+function lists_1() {
+    let l_box = []
+    let lii = list1.querySelectorAll('.item')
+    lii.forEach(l => {
+        l_box.push(l) 
+    });
+    
+    localStorage.setItem('list__1',JSON.stringify(l_box))
+
+ 
+}
+
+
 
   function solvings() {
     console.log('hiiiiii');
@@ -352,15 +415,13 @@ function update_mode() {
          
   }
   
-  console.log(rev_solved_accumulator.length);
-  Number_of_items(rev_solved_accumulator.length)
+  
+  Number_of_items(list__2.children.length)
   update_mode()
   activity_listener()
   activity_updater()
   section_listener()
   section_updater()
-
-  
 
 if ((current_time-reload_time) < 1000){
     reload_checker = true
@@ -368,13 +429,11 @@ if ((current_time-reload_time) < 1000){
     
 }
 
-
-
 remover.addEventListener('click', ()=>{
 
     
 
-    let boxer= []
+    let boxer = []
     let boxer2 = []
     let list_button = list__2.querySelectorAll(`.item`)
     let list_top = list1.querySelectorAll(`.item`)
@@ -384,17 +443,37 @@ remover.addEventListener('click', ()=>{
 
     if (list_button.length > 0) {
         list_button.forEach((btn,index)=>{
-            boxer.push((btn.classList[1][4]))
+            if (btn.classList[1][5]) {
+                boxer.push(btn.classList[1][4]+btn.classList[1][5]);
+                
+            }
+            else{
+                boxer.push((btn.classList[1][4]))
+                
+            }
+            
+            
             })
         list_top.forEach((btn,index)=>{
-            boxer2.push((btn.classList[1][4]))
+            if (btn.classList[1][5]) {
+                boxer2.push(btn.classList[1][4]+btn.classList[1][5]);
+                
+            }
+            else{
+                boxer2.push((btn.classList[1][4]))
+                
+            }
+            
             })
+
+        console.log(boxer);
+        console.log(boxer2);
     
         item_bottom= list__2.querySelector(`.item${boxer[boxer.length - 1]}`)
+        console.log(item_bottom);
         item_top= list1.querySelector(`.item${boxer2[boxer2.length - 1]}`)
         
-        console.log(boxer);
-        console.log(boxer2); 
+        
     }
     
     subtracted--
@@ -419,7 +498,7 @@ remover.addEventListener('click', ()=>{
             item_top.remove()
         }
 
-        console.log(list__2.children.length);
+        
         if ((((list__2.children.length)<= 1))) {
             item_bottom.remove()
             row2.classList.remove('shorter')
@@ -449,7 +528,17 @@ remover.addEventListener('click', ()=>{
                 
             }
         }
+        setTimeout(() => {
+            console.log(list__2.children.length);
+            console.log(boxer);
+            console.log(boxer2); 
+            
+        }, 1000);
 
+    
+        
+    Number_of_items(list__2.children.length)
+    lists_2()
     
     
 })
@@ -486,7 +575,7 @@ go_back.addEventListener('click', ()=>{
     }, 1000);
     setTimeout(() => {
         row2.classList.add('shadow')
-        row2.style.boxShadow = `-5px 0px 5px 5px rgba(22, 22, 22, 0.3), -4px -3px 6px  2px var(--fade-5)`
+        row2.style.boxShadow = `-5px 0px 5px 5px rgba(22, 22, 22, 0.3), -4px -3px 6px  2px var(--modifier)`
     }, 300);
     setTimeout(() => {
         row2.classList.remove('shadow')
@@ -511,7 +600,7 @@ go_back.addEventListener('click', ()=>{
         phase2.classList.add('hidden')  
         
         row2.classList.remove('unshadow')
-        row2.style.boxShadow = `0px 5px 5px 5px rgba(22, 22, 22, 0.3), 3px 4px 5px  2px var(--fade-5)`
+        row2.style.boxShadow = `0px 5px 5px 5px rgba(22, 22, 22, 0.3), 3px 4px 5px  2px var(--modifier)`
         section3.classList.remove('fade2') 
 
         contents_t1.forEach((content,index)=>{
@@ -525,13 +614,13 @@ go_back.addEventListener('click', ()=>{
             }
         })
 
+        
+
         contents_t2.classList.remove('move_left')
         
     }, 2500);
 
 })
-
-
 
 function time_regulator1(time_element,stop) {
     let time =  Date.now()
@@ -1249,25 +1338,75 @@ function solver(question,letters) {
         else if ((+question.join(''))) {
             let extra = 0
             let numList = []
+            let numList2 = []
+            let numList3 = []
             let main_list=[]
+            let final_list4=[]
             let final_list = []
             let extra_list =[]
             let final_list2 = []
             let final_list3 = []
+            let another_list = []
+            let another_list2 = []
+            let another_list3 = []
+            let letter_list = []
+            let letter_list2 = []
             let num_string = question.join('');
+
+            let bracket_num = "( " + num_string + " )"
             let num_number = +question.join('')
             let num_array = question.join('').split('')
 
+            console.log(num_array);
+
             num_array.forEach((str,index)=>{
+
+                if ((!(+str===0) && (+str===4))) {
+
+                    
+                    for (let n = 0; n < sets.length; n++) {
+                        // console.log( sets[n] + " < " + (+str)*(10**(num_string.length-index-1)));
+                        if (sets[n] < (+str)*(10**(num_string.length-index-1)) && (sets[n+1] > (+str)*(10**(num_string.length-index-1))) ) {
+                            numList2.push(sets[n]);
+                            numList2.push(sets[n+1]);
+                            
+                            
+                        }
+                        
+                    }
+                    
+                }
+                else if ( (!(+str===0) && (+str===9))) {
+
+                    
+                    for (let n = 0; n < sets.length; n++) {
+                        console.log( sets[n] + " < " + (+str)*(10**(num_string.length-index-1)));
+                        if (sets[n] < (+str)*(10**(num_string.length-index-1)) && (sets[n+1] > (+str)*(10**(num_string.length-index-1))) ) {
+                            numList2.push(sets[n-1]);
+                            numList2.push(sets[n+1]);
+                            
+                            
+                        }
+                        
+                    }
+                    
+                }
+                else if (!(+str===0)) {
+                    numList2.push((+str)*(10**(num_string.length-index-1)))
+                } 
+
                 if (!(+str===0)) {
                     numList.push((+str)*(10**(num_string.length-index-1)))
                 } 
     
             })
 
-            for (let x = 0; x < numList.length; x++) {
-                extra = numList[x]
+            console.log(numList);
 
+            for (let x = 0; x < numList.length; x++) {
+
+
+                extra = numList[x]
                 sets.forEach((num, index) => {
                     
                     while((num > extra) && (!(extra<=0)) ) {
@@ -1275,8 +1414,7 @@ function solver(question,letters) {
                         
                         
                         if ((!(extra===(4*(10**((extra.toString().length)-1)))) && (!(extra===(9*(10**((extra.toString().length)-1))))) && (!(extra===(6*(10**((extra.toString().length)-1))))) && (!(extra===(7*(10**((extra.toString().length)-1))))) && (!(extra===(8*(10**((extra.toString().length)-1))))))) {
-                            // console.log(4*(10**((extra.toString().length)-1)));
-                            // console.log(extra);
+
                         main_list.push(letters[index-1])
 
                         extra = extra - sets[index-1]
@@ -1292,6 +1430,7 @@ function solver(question,letters) {
                             extra = extra - ((4*(10**((extra.toString().length)-1))))
 
                             main_list.push(`${letters[index-1]}${letters[index]}` )
+                            
 
                         }
                         else if(((extra===(6*(10**((extra.toString().length)-1)))))){
@@ -1317,7 +1456,7 @@ function solver(question,letters) {
 
                             main_list.push(`${letters[index-1]}${letters[index-2]}${letters[index-2]}${letters[index-2]}` )
 
-                        }
++6                        }
 
                         else if(((extra===(9*(10**((extra.toString().length)-1)))))){
                           
@@ -1329,11 +1468,6 @@ function solver(question,letters) {
                         }
                         
 
-
-
-
-
-                        
                         else{
                             break
                         }   
@@ -1354,20 +1488,212 @@ function solver(question,letters) {
                     final_list3.push(`${main_list[y]} + ${main_list[y+1]}`)
                     y=y+1
                 }
+
+                
                 else{
                     final_list3.push(`${main_list[y]}`)
                     final_list2.push(`${extra_list[y]}`)
                     final_list.push(`${main_list[y]}`)
 
                 }
+   
+            }
 
+
+            for (let y = 0; y < numList2.length; y++) {
+                console.log( numList2)
+                console.log( numList2[y])
+
+                console.log( numList2[y] + " < " + numList2[y+1] + " = " + (numList2[y] < numList2[y+1]));
+
+                if (numList2[y] < numList2[y+1]) {
+
+
+                    final_list4.push(`( ${numList2[y+1]} - ${numList2[y]} )`);
+
+                    numList3.push(numList2[y+1])
+                    numList3.push(numList2[y])
+
+                    let a;
+                    let b;
+
+                    for (let z = 0; z < sets.length; z++) {
+                        if (numList2[y] === sets[z]) {
+                            a = letters[z];  
+                        } 
+                    }
+                    for (let z = 0; z < sets.length; z++) {
+                        if (numList2[y+1] === sets[z]) {
+                            b = letters[z] ;  
+                        } 
+                    }
+
+                    letter_list.push(`( ${a} - ${b} )`);
+
+                    if (a[0] === '-') {
+                        letter_list2.push(`( ${a[1]} - ${b} )`);
+                        
+                    }
+                    else if (b[0] === '-') {
+                        letter_list2.push(`( ${a} - ${b[1]} )`);
+                    }
+                    else if (a[0] === '-' && b[0] === '-') {
+                        letter_list2.push(`( ${a[1]} - ${b[1]} )`);
+                    }
+                    else{
+                        letter_list2.push(`( ${a} - ${b} )`);
+                    }
+
+
+                    y=y+1
+                            
+                }
+
+                else if (numList2[y] > numList2[y+1]) {
+
+                    
+                    for (let z = (sets.length-1); z > -1; z--) {
+                        
+
+                        if((numList2[y] % sets[z]) === 0){
+                    
+                            let value_  = numList2[y] / sets[z];
+
+                            numList3.push(sets[z])
+                    
+
+
+
+                            
+
+
+                            if (value_ === 3) {
+                                final_list4.push(`( ${sets[z]} + ${sets[z]} + ${sets[z]} )`);
+                                letter_list.push(`( ${letters[z]} + ${letters[z]} + ${letters[z]} )`);
+                                if (letters[z][0]=== '-') {
+                                    letter_list2.push(`( ${letters[z][1]} + ${letters[z][1]} + ${letters[z][1]} )`);
+                                }
+                                else{
+                                    letter_list2.push(`( ${letters[z]} + ${letters[z]} + ${letters[z]} )`);
+                                }
+                                
+                            }
+                            if (value_ === 2) {
+                                final_list4.push(`( ${sets[z]} + ${sets[z]} )`);
+                                letter_list.push(`( ${letters[z]} + ${letters[z]} )`);
+                                if (letters[z][0]=== '-') {
+                                    letter_list2.push(`( ${letters[z][1]} + ${letters[z][1]} )`);
+                                }
+                                else{
+                                    letter_list2.push(`( ${letters[z]} + ${letters[z]} + ${letters[z]} )`);
+                                }
+                                
+                            }
+                            if (value_ === 1) {
+                                final_list4.push(`( ${sets[z]} )`);
+                                letter_list.push(`( ${letters[z]} )`);
+
+                                if (letters[z][0]=== '-') {
+                                    letter_list2.push(`( ${letters[z][1]} )`);
+                                }
+                                else{
+                                    letter_list2.push(`( ${letters[z]} )`);
+                                }
+                                
+                            }
+
+                            break
+                        } 
+                        
+                        
+                    }
+                        
+                }
+
+            }
+
+            for (let y = 0; y < numList3.length; y++) {
+
+                for (let z = 0; z < sets.length; z++) {
+                    if (numList3[y] === sets[z]) {
+                        another_list.push(letters[z]) 
+                    }
+                    
+                }
+                
+                
+      
+            }
+
+            for (let y = 0; y < numList3.length; y++) {
+                another_list2.push(`${numList3[y]}=${another_list[y]}`)
+                another_list3.push(`${numList3[y]}=${another_list.join("").split("-").join('').split('')[y]}`)
                 
                 
             }
+            let modified = [];
+            
+            for (let y = 0; y < another_list2.join(' ').split('').length; y++) {
+                if (another_list2.join(' ').split('')[y] ==='-') {
+                    modified.push(another_list2.join(' ').split('')[y]+another_list2.join(' ').split('')[y+1]) 
+                    y++ 
+                }
+                else{
+                    modified.push(another_list2.join(' ').split('')[y])  
+                }
+                
+            }
+            let modified0=[];
+            
+
+            for (let y = 0; y <  letter_list.join('+').split('').length; y++) {
+
+                
+                if (letter_list.join('+').split('')[y] ==='-' && !(letter_list.join('+').split('')[y+1] ===' ')) {
+                    modified0.push(letter_list.join('+').split('')[y]+letter_list.join('+').split('')[y+1]) 
+                    y++
+                }
+                else{
+                    modified0.push(letter_list.join('+').split('')[y])  
+                }
+                
+            }
+
+            let modified0_1=[];
+            
+
+            for (let y = 0; y <  modified0.length; y++) {
+
+                
+                if (modified0[y][0] ==='-' && !(modified0[y][1]===undefined)) {
+                    modified0_1.push(modified0[y][1]) 
+                }
+                else{
+                    modified0_1.push(modified0[y][0])
+                }
+                
+            }
+            console.log(modified0);
+            let modified1 = (main_list.join('').split(''));
+            let modified2 = (main_list.join('').split('-').join('').split(''));
+            let modified3 = '( '+ numList.join(' + ') + ' )' ;
+            let modified4 = [];
+
+            for (let y = 0; y <  modified1.length; y++) {
+                if (modified1[y] ==='-') {
+                    modified4.push(modified1[y]+modified1[y+1]) 
+                    y = y+1 
+                }
+                else{
+                    modified4.push(modified1[y])  
+                }
+                
+            }
+            
 
            
 
-            return [final_list,num_number,numList,final_list2,final_list3,extra_list, main_list]
+            return [final_list,num_number,numList,final_list2,final_list3,extra_list, main_list, bracket_num, numList2, final_list4.join('+'), numList3, another_list, modified, another_list3.join(' ').split(''), modified0, modified0_1, modified4, modified2, modified3]
 
 
 
@@ -1419,20 +1745,31 @@ function writeText3(made) {
     console.log('hiiiiiiiiiieeeeeeeeee');
 
     console.log(dashed);
+    console.log(undashed);
     
+    let div_span = document.createElement('span')
     
     dashed.forEach((dash, index)=>{
-        // let sub_piece = document.createElement('div')
-        // console.log(sub_piece);
-        // sub_piece.innerHTML= undashed[index]
+
         let piece3 = document.createElement('span')
         piece3.innerHTML = piece3.innerHTML + undashed[index]
 
-        if (dash===dashed[0]) {
+
+        if (undashed.length >= 10) {
+            piece3.classList.add('smaller_text')
+    
+        }
+        else if (undashed.length >= 8) {
+            piece3.classList.add('small_text')
+    
+        }
+
+
+        if (index===0) {
             piece3.classList.add('first')  
          }
 
-         else if (dash===dashed[dashed.length-1]) {
+         else if (index===dashed.length-1) {
             piece3.classList.add('last')  
          }
 
@@ -1443,16 +1780,34 @@ function writeText3(made) {
         if (dash[0]==='-') {
             piece3.classList.add('bordermaker2')  
          }
-        made.appendChild(piece3)
-        
-        // piece3.appendChild(sub_piece)
-    })}
+        div_span.appendChild(piece3)
 
-    function writeText5(feed, make) {
+        console.log("im here bro");
+        
+
+    })
+
+
+   
+    made.appendChild(div_span)
+}
+
+function writeText5(feed, make) {
     heading_t1.innerHTML=''
+
+    
+
     feed[14].forEach((dash,index)=>{
         let piece4 = document.createElement('span')
         piece4.innerHTML = piece4.innerHTML + feed[13][index]
+        
+        if (feed[13].length > 10) {
+                piece4.classList.add('smaller_text') 
+        }
+        else if (feed[13] > 6) {
+            piece4.classList.add('small_text') 
+            
+        }
 
         console.log(feed[14][index]);
 
@@ -1461,6 +1816,8 @@ function writeText3(made) {
             
             piece4.classList.add('bordermaker2')
         }
+
+        
         make.appendChild(piece4)
     }
 
@@ -1469,8 +1826,23 @@ function writeText3(made) {
 
 function writeText4(feed) {
     if (!(feed===undefined)) {
+
+
+        if (feed[13].length >10) {
+
+            contents_t1.forEach((content)=>{
+                content.classList.add('smaller_text')
+            })   
+        }
+        else if (feed[13] > 6) {
+            contents_t1.forEach((content)=>{
+                content.classList.add('small_text')
+            })   
+            
+        }
+
         heading_t1.innerHTML=''
-    feed[14].forEach((dash,index)=>{
+        feed[14].forEach((dash,index)=>{
         let piece4 = document.createElement('span')
         piece4.innerHTML = piece4.innerHTML + feed[13][index]
 
@@ -1498,7 +1870,7 @@ function writeText4(feed) {
     contents_t1[1].innerHTML=''
         console.log(feed[17])
         console.log(feed[18])
-    feed[17].forEach((dash,index)=>{
+        feed[17].forEach((dash,index)=>{
         let piece4 = document.createElement('span')
         piece4.innerHTML = piece4.innerHTML + feed[18][index]
 
@@ -1526,25 +1898,94 @@ function writeText4(feed) {
         
     }
  }
+
+function writeText6(feed) {
+    
+    if (!(feed === undefined)) {
+
+
+        if (feed[17].length >10) {
+
+
+            contents_t1.forEach((content)=>{
+                content.classList.add('smaller_text')
+            })   
+        }
+        else if (feed[17].length > 6) {
+            contents_t1.forEach((content)=>{
+                content.classList.add('small_text')
+            })   
+            
+        }
+
+        
+        heading_t1.innerHTML = feed[1];
+        contents_t1[0].innerHTML = feed[18];
+        contents_t1[1].innerHTML = feed[9];
+
+
+        contents_t1[2].innerHTML =''
+            for (let letter = 0; letter < feed[12].length; letter++) {
+                let piece6 = document.createElement('span')
+                piece6.innerHTML = piece6.innerHTML + feed[13][letter]
+                console.log(feed[12][letter]);
+                if (feed[12][letter][0]==='-') {
+                    piece6.classList.add('bordermaker2')
+                    
+                }   
+                contents_t1[2].appendChild(piece6)
+            }
+
+        contents_t1[3].innerHTML = ''
+            console.log(feed[14]);
+            for (let letter = 0; letter < feed[14].length; letter++) {
+                let piece6 = document.createElement('span')
+                piece6.innerHTML = piece6.innerHTML + feed[15][letter]
+
+                if (feed[14][letter][0]==='-' && !(feed[14][letter][1]===undefined)) {
+                    console.log(!(feed[14][letter][1]===' '));
+                    console.log((feed[14][letter][1]));
+                    piece6.classList.add('bordermaker2')
+                    
+                }   
+                contents_t1[3].appendChild(piece6)
+            }
+        
+
+        the_ans_t1.innerHTML = ''
+            for (let letter = 0; letter < feed[16].length; letter++) {
+                let piece6 = document.createElement('span')
+                piece6.innerHTML = piece6.innerHTML + feed[17][letter]
+
+                if (feed[16][letter][0]==='-') {
+                    piece6.classList.add('bordermaker2')
+                    
+                }   
+                the_ans_t1.appendChild(piece6)
+            }
+
+    }
+
+    
+}
  
 function writeText(with_dash_list, without_dash_list) {
     ans.classList.remove('hidden')
-    
-    
-    
-    
 
-
-    if ((counter2 <= with_dash_list.length)) {
+    if ((counter2 < with_dash_list.length )) {
         let piece2 = document.createElement('span')
         piece2.innerHTML = without_dash_list[counter2]
         console.log(counter2);
+        console.log(with_dash_list);
 
         
 
-        if (with_dash_list[counter2][0]==='-') {
+
+        if (  with_dash_list[counter2][0]==='-') {
             piece2.classList.add('bordermaker')  
         }
+
+        
 
         ans.appendChild(piece2)
         
@@ -1701,7 +2142,7 @@ function item_creator(info) {
     if (info && problem.classList.contains('hidden')) {
         let listed3 = list__2.querySelectorAll('.item')
 
-        added= listed3.length+1
+        added = listed3.length + 1
 
         subtracted = 0
 
@@ -1737,6 +2178,15 @@ function item_creator(info) {
             `
             
             if (list1.children.length===0) {
+                marker_1 = 1;
+                marker_2 = 1;
+                marker_3 = 1;
+                marker_1_2nd = 1;
+                marker_2_2nd = 1;
+                marker_3_2nd = 1;
+                marker_1_3rd = 1;
+                marker_2_3rd = 1;
+                marker_3_3rd = 1;
                 let time_element = document.createElement('p')
                 let span_element = document.createElement('span')
                 let time_element2 = document.createElement('p')
@@ -1859,32 +2309,41 @@ function item_creator(info) {
                                 span_box.push(span.innerHTML)
                             }
                         })
+                        if (marker_1_2nd===1) {
+                            marker_2_2nd = 0;
+                            marker_3_2nd = 0;
+                            btn2_element.addEventListener('click', (e)=>{
+                                lists_2()
 
-                        btn2_element.addEventListener('click', (e)=>{
-                            e.stopPropagation() 
-                            section_transitioning1()
-
-                            setTimeout(() => {
-                                phase0_2.classList.add('hidden')
-                                phase2.classList.remove('hidden')  
-                            }, 5500);
+                                
+                                e.stopPropagation() 
+                                section_transitioning1()
+    
+                                setTimeout(() => {
+                                    phase0_2.classList.add('hidden')
+                                    phase2.classList.remove('hidden')  
+                                }, 5500);
+                                console.log('1B');
+                                
+                            })
                             
-                        })
+                        }
+                        
 
                         btn2.addEventListener('click',(e)=>{
+
+                            
                             e.stopPropagation()               
                             pointer2.remove()
                             pointer.remove()
                             notification.remove() 
                             subtracted--
                             stop = true
-                            console.log('cancel _count is');
+                            console.log('cancel _count is 2');
 
 
                             if ((list__2.children.length)===1 && list__2.firstElementChild.classList.contains('item2')) {
                                 btn2_element.remove()
-                                
-
                                 row2.classList.remove('shorter')
                                 id_row3.style.animation =`reverse-horizon 0.5s linear`
                                 setTimeout(() => {
@@ -1910,6 +2369,8 @@ function item_creator(info) {
                                 }  
                                   
                             }
+
+                            
                                 
                             }
 
@@ -1935,8 +2396,9 @@ function item_creator(info) {
                                 
                             }
 
-                                            
+                            lists_2()                
                         })
+                        lists_2()
                     }
                     if (list__2.querySelector('.item3 .top-button')){
                         btn3 = list__2.querySelector('.item3 .top-button')
@@ -1952,8 +2414,12 @@ function item_creator(info) {
                                span_box.push(span.innerHTML)
                            }
                        })
-
+                       
+                       if (marker_1_3rd === 1) {
+                        marker_2_3rd = 0;
+                        marker_3_3rd = 0
                         btn3_element.addEventListener('click', (e)=>{
+                            lists_2()
                             e.stopPropagation() 
                             section_transitioning1()
 
@@ -1963,6 +2429,10 @@ function item_creator(info) {
                             }, 5500);
                             
                         })
+                        
+                       }
+
+
                 
 
                         btn3.addEventListener('click',(e)=>{
@@ -2021,8 +2491,10 @@ function item_creator(info) {
                                 button3_element.remove()
                                 
                             }
-                                                
+                            lists_2()                    
                         })
+                        lists_2()
+
                     }
 
                     if ((list__2.querySelector(`.item${list__2.children.length} .top-button`) && list__2.children.length>3 )){
@@ -2042,6 +2514,7 @@ function item_creator(info) {
 
 
                          btn4_element.addEventListener('click', (e)=>{
+                            lists_2()
                             e.stopPropagation() 
                             section_transitioning1()
 
@@ -2111,8 +2584,10 @@ function item_creator(info) {
                                 
                                 
                             }
-                                                
+                            lists_2()                    
                         })
+
+                        lists_2()
 
                     }
                     
@@ -2137,16 +2612,38 @@ function item_creator(info) {
                         span_box.push(span.innerHTML)
                     }
                 })
-                btn1_element.addEventListener('click', (e)=>{
-                    e.stopPropagation() 
-                    section_transitioning1()
 
-                    setTimeout(() => {
-                        phase0_2.classList.add('hidden')
-                        phase2.classList.remove('hidden')  
-                    }, 5500);
+                lii.forEach(element => {
+                    console.log(element.children);
+                });
+
+
+                if (marker_1 === 1) {
+                    marker_2 = 0;
+                    marker_3 = 0;
+
+                    console.log("here is marker_1 " +  marker_1 + " and marker_2 " + marker_2);
+
                     
-                })
+                    btn1_element.addEventListener('click', (e)=>{
+                            lists_2()
+                            e.stopPropagation() 
+                            section_transitioning1()
+        
+                            setTimeout(() => {
+                                phase0_2.classList.add('hidden')
+                                phase2.classList.remove('hidden')  
+                            }, 5500);        
+                           
+                        }
+                        
+                       
+                    )
+                    
+                }
+                
+
+                
 
                 btn1.addEventListener('click',(e)=>{
 
@@ -2196,10 +2693,15 @@ function item_creator(info) {
                                         
                                         
                     }
-                                        
+
+                    
+                    lists_2()                     
                 })
+                lists_2()
             }
             
+
+
             if (((list1.children.length)>0)){
                 
                 list1.children[0].classList.add('marginer')
@@ -2210,64 +2712,112 @@ function item_creator(info) {
                     list1.children[1].classList.remove('marginer')
 
 
-
-                    
-
-
                     if (list1.querySelector('.item2 .top-button')){
                         button2 = list1.querySelector('.item2 .top-button')
                         button2_element = list1.querySelector('.item2')
                        
-                        button2.addEventListener('click',()=>{
-
-                            console.log(' im fucking hereeeee');
-                            
-
-                             console.log('cancel _count is');
-                            
+                        button2.addEventListener('click',(e)=>{
+                            e.stopPropagation() 
                             stop = true
-                            
+                            button2_element.remove()
                             btn2_element.remove()
-
-                            if ((list__2.children.length==1) && list__2.firstElementChild.classList.contains('item2')) {
+        
+        
+                            let listed2 = list__2.querySelectorAll('.item')
+                                    for (let i = 0; i < listed2.length; i++) {
+        
+                                        console.log(listed2[i]);
+                                        if (listed2[i].classList.contains('hidden')){
+                                            console.log(listed2[i]);
+                                            listed2[i].classList.remove('hidden')
+                                            listed2[i].classList.add('margin_reducer')
+        
+                                            break 
+                                        }  
+                                          
+                                    }
+                            
+        
+                            console.log(list1.children.length);
+        
+                            if (!(list__2.children.length)) {
                                 console.log('hiiiiiiiiiiiiiiiiiiiiiiii');
                                 row2.classList.remove('shorter')
                                 id_row3.style.animation =`reverse-horizon 0.5s linear`
-                            }
-                            
-
-
-                            if ((list1.children.length)===1 && list1.firstElementChild.classList.contains('item2')) {
-                                reducer.classList.add('reducer') 
-                                row1.childNodes[1].classList.remove('active')
-                                reducer.classList.remove('grower')
-                                setTimeout(() => {
-                                row1.classList.add('hidden')
-                                row1.childNodes[1].classList.add('remove')  
-                                }, 500);
-                                setTimeout(() => {
-                                    button2_element.remove()
-                                }, 1000);
-                                    
-                            }
-                            else{
-                                button2_element.remove()
                                 
+        
+                                setTimeout(() => {
+                                    section2.classList.add('hidden')
+                                    row2.classList.add('enlarger')
+                                    
+                                }, 300)
+        
                             }
-                            
+                            if (!(list1.children.length)) {
+        
+                                row1.childNodes[1].classList.remove('active')
+                               row1.childNodes[1].classList.add('remove')
+                                reducer.classList.remove('grower')
+                                reducer.classList.add('reducer')
+                                
+        
+                                setTimeout(() => {
+                                    console.log('cancelor did this');
+                                    reducer.classList.remove('reducer') 
+                                    row1.classList.add('hidden') 
+        
+                                     
+                                }, 500 );
+        
+                                
+                                
+        
+                            }
+        
                         })
+
+
+                        if (marker_1_2nd ===1) {
+                            marker_2_2nd = 0;
+                            marker_1_3rd= 0;
+                            button2_element.addEventListener('click', (e)=>{
+                                e.stopPropagation() 
+                                section_transitioning1()
+            
+                                setTimeout(() => {
+                                    phase0_2.classList.add('hidden')
+                                    phase2.classList.remove('hidden')  
+                                }, 5500);        
+                               
+                            })
+                        }
+                        
+
+                        
                     }
 
                     if (list1.querySelector('.item3 .top-button')){
                         button3 = list1.querySelector('.item3 .top-button')
                         button3_element = list1.querySelector('.item3')
                        
-                        button3.addEventListener('click',()=>{
-                            
-
+                        button3.addEventListener('click',(e)=>{
+                            e.stopPropagation() 
                             console.log('cancel _count is');
                             stop = true
                             btn3_element.remove()
+                            let listed2 = list__2.querySelectorAll('.item')
+                            for (let i = 0; i < listed2.length; i++) {
+
+                                console.log(listed2[i]);
+                                if (listed2[i].classList.contains('hidden')){
+                                    console.log(listed2[i]);
+                                    listed2[i].classList.remove('hidden')
+                                    listed2[i].classList.add('margin_reducer')
+
+                                    break 
+                                }  
+                                  
+                            }
 
 
                             if (((list__2.children.length)===1) && list__2.firstElementChild.classList.contains('item3')) {
@@ -2303,6 +2853,22 @@ function item_creator(info) {
 
                            
                         })
+
+                        if (marker_1_3rd === 1) {
+                            marker_2_3rd = 0;
+                            marker_3_3rd = 0;
+                            button3_element.addEventListener('click', (e)=>{
+                                e.stopPropagation() 
+                                section_transitioning1()
+            
+                                setTimeout(() => {
+                                    phase0_2.classList.add('hidden')
+                                    phase2.classList.remove('hidden')  
+                                }, 5500);        
+                               
+                            })
+                        }
+                        
                     }
 
                     if (list1.querySelector(`.item${list1.children.length} .top-button`) && list1.children.length>3 ){
@@ -2310,29 +2876,25 @@ function item_creator(info) {
                         button4_element = list1.querySelector(`.item${list1.children.length}`)
                         
                        
-                        button4.addEventListener('click',()=>{
-                    
-
+                        button4.addEventListener('click',(e)=>{            
+                            e.stopPropagation() 
                             console.log('bro, over here bt' );
                             stop = true
                             
                             btn4_element.remove()
+                            let listed2 = list__2.querySelectorAll('.item')
+                            for (let i = 0; i < listed2.length; i++) {
 
-                            // if (!(list__2.children.length)) {
-                            //     console.log('hiiiiiiiiiiiiiiiiiiiiiiii');
-                            //     row2.classList.remove('shorter')
-                            //     id_row3.style.animation =`reverse-horizon 0.5s linear`
-                            
-                                
+                                console.log(listed2[i]);
+                                if (listed2[i].classList.contains('hidden')){
+                                    console.log(listed2[i]);
+                                    listed2[i].classList.remove('hidden')
+                                    listed2[i].classList.add('margin_reducer')
 
-                            //     setTimeout(() => {
-                            //         section2.classList.add('hidden')
-                            //         row2.classList.add('enlarger')
-                                    
-                            //     }, 300)
-
-                            // }
-
+                                    break 
+                                }  
+                                  
+                            }
 
                             if (((list1.children.length)===1 && !(list1.firstElementChild.classList.contains(`.item3`)) && !(list1.firstElementChild.classList.contains(`.item2`)))) {
                                 console.log('hiiiiiiiiiiiiiiiiiiiiiiii');
@@ -2393,6 +2955,17 @@ function item_creator(info) {
 
                            
                         })
+
+                        button4_element.addEventListener('click', (e)=>{
+                            e.stopPropagation() 
+                            section_transitioning1()
+        
+                            setTimeout(() => {
+                                phase0_2.classList.add('hidden')
+                                phase2.classList.remove('hidden')  
+                            }, 5500);        
+                           
+                        })
                     }
                 }, 300)
 
@@ -2404,14 +2977,29 @@ function item_creator(info) {
                 button1 = list1.querySelector('.item1 .top-button')
                 button1_element = list1.querySelector('.item1')
                
-                button1.addEventListener('click',()=>{
-            
+                button1.addEventListener('click',(e)=>{
+                    e.stopPropagation() 
 
-                    console.log('cancel _count is' );
+                    
                     
                     stop = true
                     button1_element.remove()
                     btn1_element.remove()
+
+
+                    let listed2 = list__2.querySelectorAll('.item')
+                            for (let i = 0; i < listed2.length; i++) {
+
+                                console.log(listed2[i]);
+                                if (listed2[i].classList.contains('hidden')){
+                                    console.log(listed2[i]);
+                                    listed2[i].classList.remove('hidden')
+                                    listed2[i].classList.add('margin_reducer')
+
+                                    break 
+                                }  
+                                  
+                            }
                     
 
                     console.log(list1.children.length);
@@ -2451,6 +3039,21 @@ function item_creator(info) {
                     }
 
                 })
+
+                if (marker_1 === 1) {
+                    marker_2 = 0;
+                    marker_3 = 0;
+                    button1_element.addEventListener('click', (e)=>{
+                        e.stopPropagation() 
+                        section_transitioning1()
+
+                        setTimeout(() => {
+                            phase0_2.classList.add('hidden')
+                            phase2.classList.remove('hidden')  
+                        }, 5500);        
+                    
+                    })
+            }
             }    
 
 
@@ -2482,6 +3085,12 @@ function item_creator(info) {
             `
             
             if (list1.children.length===0) {
+                marker_1 = 1;
+                marker_2 = 1;
+                marker_1_2nd =1;
+                marker_2_2nd =1;
+                marker_1_3rd =1;
+                marker_2_3rd =1;
                 let question_1 = document.createElement('div')
                 question_1.classList.add('question')
                 let question_2 = document.createElement('div')
@@ -2646,45 +3255,46 @@ function item_creator(info) {
                             }
                         })
 
-                        btn2_element.addEventListener('click', (e)=>{
-                            e.stopPropagation() 
-                            let Texts
-                            let storer=[]
-                            console.log(rev_solved_accumulator.length);
-                            
-                            function finding_numeral(span_box ,storer) {
+
+                        if (marker_2_2nd === 1) {
+                            marker_1_2nd = 0;
+                            marker_3_2nd = 0;
+                            btn2_element.addEventListener('click', (e)=>{
+                                e.stopPropagation() 
+                                let Texts
+                                let storer=[]
+                                console.log(rev_solved_accumulator.length);
                                 
-                                for (let i = 0; i < rev_solved_accumulator.length; i++) {
-                                    console.log(rev_solved_accumulator[i])
-                                    console.log(span_box.join(''));
-
-                                    if(rev_solved_accumulator[i][1] === span_box.join('')){
-                                        storer.push(rev_solved_accumulator[i])
-
-                                        console.log(storer);
-                                        break
-                                    }   
+                                function finding_numeral(span_box ,storer) {
+                                    
+                                    for (let i = 0; i < rev_solved_accumulator.length; i++) {
+                                        console.log(rev_solved_accumulator[i])
+                                        console.log(span_box.join(''));
+    
+                                        if(rev_solved_accumulator[i][1] === span_box.join('')){
+                                            storer.push(rev_solved_accumulator[i])
+    
+                                            console.log(storer);
+                                            break
+                                        }   
+                                        
+                                    }
                                     
                                 }
                                 
-                            }
-                            
-                            finding_numeral(span_box,storer) 
-                            console.log(storer)
-                            Texts = writeText4(storer[0])   
-                            section_transitioning2()
+                                finding_numeral(span_box,storer) 
+                                console.log(storer)
+                                Texts = writeText4(storer[0])   
+                                section_transitioning2()
+    
+                                setTimeout(() => {
+                                    phase0_1.classList.add('hidden')
+                                    phase1.classList.remove('hidden')  
+                                }, 5500);
+                                console.log('2 ');
+                            })
+                        }
 
-                            setTimeout(() => {
-                                phase0_1.classList.add('hidden')
-                                phase1.classList.remove('hidden')  
-                            }, 5500);
-                            
-                        })
-
-                        
-
-            
-                       
                         btn2.addEventListener('click',(e)=>{
                             e.stopPropagation()               
                             pointer2.remove()
@@ -2767,45 +3377,51 @@ function item_creator(info) {
                             }
                         })
 
+                        if (marker_2_3rd === 1 ) {
+                            marker_1_3rd =0;
+                            marker_3_3rd =0;
 
-                         btn3_element.addEventListener('click', (e)=>{
-                            e.stopPropagation() 
-                            let Texts
-                            let storer=[]
-                            console.log(rev_solved_accumulator.length);
-                            
-                            function finding_numeral(span_box ,storer) {
+                            btn3_element.addEventListener('click', (e)=>{
+                                e.stopPropagation() 
+                                let Texts
+                                let storer=[]
+                                console.log(rev_solved_accumulator.length);
                                 
-                                for (let i = 0; i < rev_solved_accumulator.length; i++) {
-                                    console.log(rev_solved_accumulator[i])
-                                    console.log(span_box.join(''));
-
-                                    if(rev_solved_accumulator[i][1] === span_box.join('')){
-                                        storer.push(rev_solved_accumulator[i])
-
-                                        console.log(storer);
-                                        break
-                                    }   
+                                function finding_numeral(span_box ,storer) {
+                                    
+                                    for (let i = 0; i < rev_solved_accumulator.length; i++) {
+                                        console.log(rev_solved_accumulator[i])
+                                        console.log(span_box.join(''));
+    
+                                        if(rev_solved_accumulator[i][1] === span_box.join('')){
+                                            storer.push(rev_solved_accumulator[i])
+    
+                                            console.log(storer);
+                                            break
+                                        }   
+                                        
+                                    }
                                     
                                 }
                                 
-                            }
+                                finding_numeral(span_box,storer) 
+                                console.log(storer)
+                                Texts = writeText4(storer[0])   
+                                section_transitioning2()
+    
+                                setTimeout(() => {
+                                    phase0_1.classList.add('hidden')
+                                    phase1.classList.remove('hidden')  
+                                }, 5500);
+                                
+                                
+    
+    
+                                
+                            })
                             
-                            finding_numeral(span_box,storer) 
-                            console.log(storer)
-                            Texts = writeText4(storer[0])   
-                            section_transitioning2()
-
-                            setTimeout(() => {
-                                phase0_1.classList.add('hidden')
-                                phase1.classList.remove('hidden')  
-                            }, 5500);
-                            
-                            
-
-
-                            
-                        })
+                        }
+                        
 
                         btn3.addEventListener('click',(e)=>{
                             e.stopPropagation()
@@ -3014,42 +3630,59 @@ function item_creator(info) {
 
                 
 
-                 
-                btn1_element.addEventListener('click', (e)=>{
-                    e.stopPropagation() 
-                    let Texts
-                    let storer=[]
-                    console.log(rev_solved_accumulator.length);
+                if (marker_2 === 1) {
+                    marker_1 = 0;
+                    marker_3 = 0;
                     
-                    function finding_numeral(span_box ,storer) {
-                        
-                        for (let i = 0; i < rev_solved_accumulator.length; i++) {
-                            console.log(rev_solved_accumulator[i])
-                            console.log(span_box.join(''));
+                    
+                    console.log("here is marker_2 " +  marker_2 + " and marker 1 " + marker_1);
+                    btn1_element.addEventListener('click', (e)=>{
 
-                            if(rev_solved_accumulator[i][1] === span_box.join('')){
-                                storer.push(rev_solved_accumulator[i])
-
-                                console.log(storer);
-                                break
-                            }   
+                                console.log("i clicked " + clicker);
+                            e.stopPropagation() 
+                            let Texts
+                            let storer=[]
+                            console.log(rev_solved_accumulator.length);
                             
-                        }
-                        
-                    }
-                    
-                    finding_numeral(span_box,storer) 
-                    console.log(storer)
-                    Texts = writeText4(storer[0])   
-                    section_transitioning2()
+                            function finding_numeral(span_box ,storer) {
+                                
+                                for (let i = 0; i < rev_solved_accumulator.length; i++) {
+                                    console.log(rev_solved_accumulator[i])
+                                    console.log(span_box.join(''));
+        
+                                    if(rev_solved_accumulator[i][1] === span_box.join('')){
+                                        storer.push(rev_solved_accumulator[i])
+        
+                                        console.log(storer);
+                                        break
+                                    }   
+                                    
+                                }
+                                
+                            }
+                            
+                            finding_numeral(span_box,storer) 
+                            console.log(storer)
+                            Texts = writeText4(storer[0])   
+                            section_transitioning2()
+        
+                            setTimeout(() => {
+                                phase0_1.classList.add('hidden')
+                                phase1.classList.remove('hidden')  
+                            }, 5500);
+                            
+                            console.log('2B');
+                            
+                                
+                            
+                                                
+                       
+                    })
 
-                    setTimeout(() => {
-                        phase0_1.classList.add('hidden')
-                        phase1.classList.remove('hidden')  
-                    }, 5500);
+                
                     
-                    
-                })
+                }
+                
                     
 
                  
@@ -3131,41 +3764,46 @@ function item_creator(info) {
                                 span_box.push(span.innerHTML)
                             }
                         })
-                        button2_element.addEventListener('click', (e)=>{
-                            e.stopPropagation() 
-                            let Texts
-                            let storer=[]
-                            console.log(rev_solved_accumulator.length);
-                            
-                            function finding_numeral(span_box ,storer) {
+                        if (marker_2_2nd === 1) {
+                            marker_1_2nd = 0;
+                            marker_3_2nd = 0;
+                            button2_element.addEventListener('click', (e)=>{
+                                e.stopPropagation() 
+                                let Texts
+                                let storer=[]
+                                console.log(rev_solved_accumulator.length);
                                 
-                                for (let i = 0; i < rev_solved_accumulator.length; i++) {
-                                    console.log(rev_solved_accumulator[i])
-                                    console.log(span_box.join(''));
-
-                                    if(rev_solved_accumulator[i][1] === span_box.join('')){
-                                        storer.push(rev_solved_accumulator[i])
-
-                                        console.log(storer);
-                                        break
-                                    }   
+                                function finding_numeral(span_box ,storer) {
+                                    
+                                    for (let i = 0; i < rev_solved_accumulator.length; i++) {
+                                        console.log(rev_solved_accumulator[i])
+                                        console.log(span_box.join(''));
+    
+                                        if(rev_solved_accumulator[i][1] === span_box.join('')){
+                                            storer.push(rev_solved_accumulator[i])
+    
+                                            console.log(storer);
+                                            break
+                                        }   
+                                        
+                                    }
                                     
                                 }
                                 
-                            }
-                            
-                            finding_numeral(span_box,storer) 
-                            console.log(storer)
-                            Texts = writeText4(storer[0])   
-                            section_transitioning2()
-
-                            setTimeout(() => {
-                                phase0_1.classList.add('hidden')
-                                phase1.classList.remove('hidden')  
-                            }, 5500);
-                            
-                            
-                        })
+                                finding_numeral(span_box,storer) 
+                                console.log(storer)
+                                Texts = writeText4(storer[0])   
+                                section_transitioning2()
+    
+                                setTimeout(() => {
+                                    phase0_1.classList.add('hidden')
+                                    phase1.classList.remove('hidden')  
+                                }, 5500);
+                                
+                                
+                            })
+                        }
+                        
                        
                         button2.addEventListener('click',(e)=>{
 
@@ -3181,6 +3819,20 @@ function item_creator(info) {
                             subtracted--
                             stop = true
                             btn2_element.remove()
+
+                            let listed2 = list__2.querySelectorAll('.item')
+                            for (let i = 0; i < listed2.length; i++) {
+
+                                console.log(listed2[i]);
+                                if (listed2[i].classList.contains('hidden')){
+                                    console.log(listed2[i]);
+                                    listed2[i].classList.remove('hidden')
+                                    listed2[i].classList.add('margin_reducer')
+
+                                    break 
+                                }  
+                                  
+                            }
 
                             if ((list__2.children.length==1) && list__2.firstElementChild.classList.contains('item2')) {
                                 console.log('hiiiiiiiiiiiiiiiiiiiiiiii');
@@ -3226,41 +3878,46 @@ function item_creator(info) {
                             }
                         })
 
-                        button3_element.addEventListener('click', (e)=>{
-                            e.stopPropagation() 
-                            let Texts
-                            let storer=[]
-                            console.log(rev_solved_accumulator.length);
-                            
-                            function finding_numeral(span_box ,storer) {
+                        if (marker_2_3rd === 1 ) {
+                            marker_1_3rd =0;
+                            marker_3_3rd =0;
+                            button3_element.addEventListener('click', (e)=>{
+                                e.stopPropagation() 
+                                let Texts
+                                let storer=[]
+                                console.log(rev_solved_accumulator.length);
                                 
-                                for (let i = 0; i < rev_solved_accumulator.length; i++) {
-                                    console.log(rev_solved_accumulator[i])
-                                    console.log(span_box.join(''));
-
-                                    if(rev_solved_accumulator[i][1] === span_box.join('')){
-                                        storer.push(rev_solved_accumulator[i])
-
-                                        console.log(storer);
-                                        break
-                                    }   
+                                function finding_numeral(span_box ,storer) {
+                                    
+                                    for (let i = 0; i < rev_solved_accumulator.length; i++) {
+                                        console.log(rev_solved_accumulator[i])
+                                        console.log(span_box.join(''));
+    
+                                        if(rev_solved_accumulator[i][1] === span_box.join('')){
+                                            storer.push(rev_solved_accumulator[i])
+    
+                                            console.log(storer);
+                                            break
+                                        }   
+                                        
+                                    }
                                     
                                 }
                                 
-                            }
-                            
-                            finding_numeral(span_box,storer) 
-                            console.log(storer)
-                            Texts = writeText4(storer[0])   
-                            section_transitioning2()
-
-                            setTimeout(() => {
-                                phase0_1.classList.add('hidden')
-                                phase1.classList.remove('hidden')  
-                            }, 5500);
-                            
-                            
-                        })
+                                finding_numeral(span_box,storer) 
+                                console.log(storer)
+                                Texts = writeText4(storer[0])   
+                                section_transitioning2()
+    
+                                setTimeout(() => {
+                                    phase0_1.classList.add('hidden')
+                                    phase1.classList.remove('hidden')  
+                                }, 5500);
+                                
+                                
+                            })
+                        }
+                        
                        
                         button3.addEventListener('click',(e)=>{
 
@@ -3272,6 +3929,20 @@ function item_creator(info) {
                             console.log('cancel _count is');
                             stop = true
                             btn3_element.remove()
+
+                            let listed2 = list__2.querySelectorAll('.item')
+                            for (let i = 0; i < listed2.length; i++) {
+
+                                console.log(listed2[i]);
+                                if (listed2[i].classList.contains('hidden')){
+                                    console.log(listed2[i]);
+                                    listed2[i].classList.remove('hidden')
+                                    listed2[i].classList.add('margin_reducer')
+
+                                    break 
+                                }  
+                                  
+                            }
 
 
                             if (((list__2.children.length)===1) && list__2.firstElementChild.classList.contains('item3')) {
@@ -3373,6 +4044,19 @@ function item_creator(info) {
                             stop = true
                             
                             btn4_element.remove()
+                            let listed2 = list__2.querySelectorAll('.item')
+                            for (let i = 0; i < listed2.length; i++) {
+
+                                console.log(listed2[i]);
+                                if (listed2[i].classList.contains('hidden')){
+                                    console.log(listed2[i]);
+                                    listed2[i].classList.remove('hidden')
+                                    listed2[i].classList.add('margin_reducer')
+
+                                    break 
+                                }  
+                                  
+                            }
 
 
 
@@ -3411,25 +4095,6 @@ function item_creator(info) {
                                 
                             }
                         
-
-                            // if (!(list1.children.length)) {
-                            //     console.log('hiiiiiiiiiiiiiiiiiiiiiiii');
-
-                            //     list1.classList.remove('active')
-                            //     list1.classList.add('remove')
-
-                            //     setTimeout(() => {
-                            //         reducer.classList.remove('grower')
-                            //         reducer.classList.add('reducer')
-                                    
-                            //     }, 500);
-                            //     setTimeout(() => {
-                            //         row1.classList.add('hidden') 
-                            //         reducer.classList.remove('reducer')
-                            //     }, 1000 );
-
-
-                            // }
       
                         })
                     }
@@ -3454,41 +4119,53 @@ function item_creator(info) {
                     }
                 })
 
-                button1_element.addEventListener('click', (e)=>{
-                    e.stopPropagation() 
-                    let Texts
-                    let storer=[]
-                    console.log(rev_solved_accumulator.length);
-                    
-                    function finding_numeral(span_box ,storer) {
+                if (marker_2 === 1) {
+                    marker_1 = 0;
+                    marker_3 = 0;
+
+                    button1_element.addEventListener('click', (e)=>{
+                        e.stopPropagation() 
+                        let Texts
+                        let storer=[]
+                        console.log(rev_solved_accumulator.length);
                         
-                        for (let i = 0; i < rev_solved_accumulator.length; i++) {
-                            console.log(rev_solved_accumulator[i])
-                            console.log(span_box.join(''));
-
-                            if(rev_solved_accumulator[i][1] === span_box.join('')){
-                                storer.push(rev_solved_accumulator[i])
-
-                                console.log(storer);
-                                break
-                            }   
+                        function finding_numeral(span_box ,storer) {
+                            
+                            for (let i = 0; i < rev_solved_accumulator.length; i++) {
+                                console.log(rev_solved_accumulator[i])
+                                console.log(span_box.join(''));
+    
+                                if(rev_solved_accumulator[i][1] === span_box.join('')){
+                                    storer.push(rev_solved_accumulator[i])
+    
+                                    console.log(storer);
+                                    break
+                                }   
+                                
+                            }
                             
                         }
                         
-                    }
-                    
-                    finding_numeral(span_box,storer) 
-                    console.log(storer)
-                    Texts = writeText4(storer[0])   
-                    section_transitioning2()
+                        finding_numeral(span_box,storer) 
+                        console.log(storer)
+                        Texts = writeText4(storer[0])   
+                        section_transitioning2()
+    
+                        setTimeout(() => {
+                            phase0_1.classList.add('hidden')
+                            phase1.classList.remove('hidden')  
+                        }, 5500);
+                        
+                        
+                    })
 
-                    setTimeout(() => {
-                        phase0_1.classList.add('hidden')
-                        phase1.classList.remove('hidden')  
-                    }, 5500);
-                    
-                    
-                })
+
+
+
+                }
+
+
+
 
                 button1.addEventListener('click',(e)=>{
 
@@ -3501,6 +4178,20 @@ function item_creator(info) {
                     stop = true
                     button1_element.remove()
                     btn1_element.remove()
+
+                    let listed2 = list__2.querySelectorAll('.item')
+                            for (let i = 0; i < listed2.length; i++) {
+
+                                console.log(listed2[i]);
+                                if (listed2[i].classList.contains('hidden')){
+                                    console.log(listed2[i]);
+                                    listed2[i].classList.remove('hidden')
+                                    listed2[i].classList.add('margin_reducer')
+
+                                    break 
+                                }  
+                                  
+                            }
                     
 
                     console.log(list1.children.length);
@@ -3541,6 +4232,8 @@ function item_creator(info) {
 
                 })
             }  
+
+            
             
         
 
@@ -3548,6 +4241,8 @@ function item_creator(info) {
 
         }
         else if (!(+info[0])) {
+
+            
             let stop = false
             
 
@@ -3558,53 +4253,568 @@ function item_creator(info) {
             <p class="question">${info[1]}</p>
             <p class="answer">ans:</p>
             `
+
+            made2.innerHTML=`
+            <div class="top-button">
+                <button class="closer"><i class="fas fa-times"></i></button>
+            </div>
+            <p class="question">${info[1]}</p>
+            <p class="answer">ans:</p>
+            `
+
             console.log(list1)
             if (list1) {
                 if (list1.children.length===0) {
+                    marker_1 = 1;
+                    marker_2 = 1;
+                    marker_1_2nd =1;
+                    marker_2_2nd =1;
+                    marker_1_3rd =1;
+                    marker_2_3rd =1;
+
                     let time_element = document.createElement('p')
+                    let time_element2 = document.createElement('p')
+                    
+
                     time_element.classList.add('time')
-                    time_regulator1(time_element)
+                    time_element2.classList.add('time')
+
+                    time_regulator1(time_element,stop)
+                    time_regulator1(time_element2,stop)
+
                     made.appendChild(time_element)
+                    made2.appendChild(time_element2)
+
+                    
                     writeText3(made)
+                    writeText3(made2)
                     made.classList.add('item1')
+                    made2.classList.add('item1')
+                    console.log(made2);
                     
                     
                 }
                 else if (list1.children.length===1) {
                     let time_element = document.createElement('p')
+                    let time_element2 = document.createElement('p')
                     time_element.classList.add('time')
-                    time_regulator2(time_element)
+                    time_element2.classList.add('time')
+                    time_regulator2(time_element,stop)
+                    time_regulator2(time_element2,stop)
                     made.appendChild(time_element)
+                    made2.appendChild(time_element2)
                     writeText3(made)
+                    writeText3(made2)
                     made.classList.add('item2')
+                    made2.classList.add('item2')
                     
                 }
                 else if (list1.children.length===2) {
                     let time_element = document.createElement('p')
-                    
+                    let time_element2 = document.createElement('p')
                     time_element.classList.add('time')
-                    time_regulator3(time_element)
+                    time_element2.classList.add('time')
+                    time_regulator3(time_element,stop)
+                    time_regulator3(time_element2,stop)
                     made.appendChild(time_element)
+                    made2.appendChild(time_element2)
                     writeText3(made)
+                    writeText3(made2)
                     made.classList.add('item3')
-                    
+                    made2.classList.add('item3')
                 }
 
                 else if (list1.children.length>2){
                     let time_element = document.createElement('p')
+                    let time_element2 = document.createElement('p')
                     time_element.classList.add('time')
-                    time_regulator3(time_element)
+                    time_element2.classList.add('time')
+                    time_regulator3(time_element,stop)
+                    time_regulator3(time_element2,stop)
                     made.appendChild(time_element)
+                    made2.appendChild(time_element2)
                     writeText3(made)
+                    writeText3(made2)
+                    
                     made.classList.add(`item${list1.children.length+1}`)
+                    made2.classList.add(`item${list1.children.length+1}`)
     
                     
                 }
             }
+
+
+
+            if (((list__2.children.length)>0)){
+                let listed1=list__2.querySelectorAll('.item')
+
+                if (list__2.children.length>1) {
+
+                    listed1.forEach((listed, index)=>{
+                                if (index>1){
+                                    listed.classList.add('hidden')
+                                }
+                            })
+                        }
+
+                  list__2.children[0].classList.add('left_marginer')
+                setTimeout(() => {
+                    list__2.prepend(made2)
+                    list__2.children[0].classList.remove('left_marginer')
+                    list__2.children[1].classList.remove('left_marginer')
+
+
+                    if (list__2.querySelector('.item2 .top-button')){
+                        btn2 = list__2.querySelector(`.item2 .top-button`)
+                        btn2_element = list__2.querySelector(`.item2`)
+                        let span_box = []
+                        let q_question = list__2.querySelector(`.item2 .question`)
+                        console.log(q_question.innerHTML);
+                        span_box.push(q_question.innerHTML)
+
+
+                        if (marker_3_2nd === 1) {
+                            marker_1_2nd = 0;
+                            marker_2_2nd = 0;
+                            btn2_element.addEventListener('click', (e)=>{
+                                e.stopPropagation() 
+                                let storer=[]
+                                console.log(rev_solved_accumulator.length);
+                                console.log(rev_solved_accumulator);
+                                
+                                function finding_numeral(span_box ,storer) {
+                                    
+                                    for (let i = 0; i < rev_solved_accumulator.length; i++) {
+                                        console.log(rev_solved_accumulator[i])
+                                        console.log(span_box);
+
+                                        if(rev_solved_accumulator[i][1] === +span_box){
+                                            storer.push(rev_solved_accumulator[i])
+
+                                            console.log(storer);
+                                            break
+                                        }   
+                                        
+                                    }
+                                    
+                                }
+                                
+                                finding_numeral(span_box,storer) 
+                                console.log(storer)
+                                writeText6(storer[0])
+                                section_transitioning2()
+
+                                setTimeout(() => {
+                                    phase0_1.classList.add('hidden')
+                                    phase1.classList.remove('hidden')  
+                                }, 5500);
+                                
+                            })
+                        }
+                        
+
+                        btn2.addEventListener('click',(e)=>{
+                            e.stopPropagation()               
+                            pointer2.remove()
+                            pointer.remove()
+                            notification.remove() 
+                            subtracted--
+                            stop = true
+                            console.log('cancel _count is');
+
+
+                            if ((list__2.children.length)===1 && list__2.firstElementChild.classList.contains('item2')) {
+                                btn2_element.remove()
+                                
+
+                                row2.classList.remove('shorter')
+                                id_row3.style.animation =`reverse-horizon 0.5s linear`
+                                setTimeout(() => {
+                                    section2.classList.add('hidden')
+                                    row2.classList.add('enlarger')  
+                                }, 300)  
+                                
+                                                
+                            }
+                            else{
+                                btn2_element.remove()
+                                
+                                let listed2 = list__2.querySelectorAll('.item')
+                            for (let i = 0; i < listed2.length; i++) {
+
+                                console.log(listed2[i]);
+                                if (listed2[i].classList.contains('hidden')){
+                                    console.log(listed2[i]);
+                                    listed2[i].classList.remove('hidden')
+                                    listed2[i].classList.add('margin_reducer')
+
+                                    break 
+                                }  
+                                  
+                            }
+                                
+                            }
+
+
+                            
+
+            
+                            if ((list1.children.length)===1 && list1.firstElementChild.classList.contains('item2')) {
+                                reducer.classList.add('reducer') 
+                                row1.childNodes[1].classList.remove('active')
+                                reducer.classList.remove('grower')
+                                setTimeout(() => {
+                                row1.classList.add('hidden')
+                                row1.childNodes[1].classList.add('remove')  
+                                }, 500);
+                                setTimeout(() => {
+                                    button2_element.remove()
+                                }, 1000);
+                                    
+                            }
+                            else{
+                                button2_element.remove()
+                                
+                            }
+
+                                            
+                        })
+                    }
+                    if (list__2.querySelector('.item3 .top-button')){
+                        btn3 = list__2.querySelector(`.item3 .top-button`)
+                        btn3_element = list__2.querySelector(`.item3`)
+                        let span_box = []
+                        let q_question = list__2.querySelector(`.item3 .question`)
+                        console.log(q_question.innerHTML);
+                        span_box.push(q_question.innerHTML)
+
+
+                        if (marker_3_3rd === 1) {
+                            marker_1_3rd = 0;
+                            marker_2_3rd = 0;
+                            btn3_element.addEventListener('click', (e)=>{
+                                e.stopPropagation() 
+                                let storer=[]
+                                console.log(rev_solved_accumulator.length);
+                                console.log(rev_solved_accumulator);
+                                
+                                function finding_numeral(span_box ,storer) {
+                                    
+                                    for (let i = 0; i < rev_solved_accumulator.length; i++) {
+                                        console.log(rev_solved_accumulator[i])
+                                        console.log(span_box);
+
+                                        if(rev_solved_accumulator[i][1] === +span_box){
+                                            storer.push(rev_solved_accumulator[i])
+
+                                            console.log(storer);
+                                            break
+                                        }   
+                                        
+                                    }
+                                    
+                                }
+                                
+                                finding_numeral(span_box,storer) 
+                                console.log(storer)
+                                writeText6(storer[0])
+                                section_transitioning2()
+
+                                setTimeout(() => {
+                                    phase0_1.classList.add('hidden')
+                                    phase1.classList.remove('hidden')  
+                                }, 5500);
+                                
+                            })
+                        }
+
+
+                
+
+                        btn3.addEventListener('click',(e)=>{
+                            e.stopPropagation()
+                            
+                            pointer2.remove()
+                            pointer.remove()
+                            notification.remove() 
+                            subtracted--
+                            stop = true
+
+                            if ((list__2.children.length)===1 && list__2.firstElementChild.classList.contains('item3')) {
+                                btn3_element.remove()
+                                console.log('hiiiiiiiiiiiiiiiiiiiiiiii');
+                                row2.classList.remove('shorter')
+                                id_row3.style.animation =`reverse-horizon 0.5s linear`
+                                setTimeout(() => {
+                                    section2.classList.add('hidden')
+                                    row2.classList.add('enlarger')
+                                    
+                                }, 300)                 
+                                                
+                            }
+                            else{
+                                btn3_element.remove()
+
+                                let listed2 = list__2.querySelectorAll('.item')
+                            for (let i = 0; i < listed2.length; i++) {
+
+                                console.log(listed2[i]);
+                                if (listed2[i].classList.contains('hidden')){
+                                    console.log(listed2[i]);
+                                    listed2[i].classList.remove('hidden')
+                                    listed2[i].classList.add('margin_reducer')
+
+                                    break 
+                                }  
+                                  
+                            }
+                            }
+            
+                            if ((list1.children.length)===1 && list1.firstElementChild.classList.contains('item3')) {
+                                reducer.classList.add('reducer') 
+                                row1.childNodes[1].classList.remove('active')
+                                reducer.classList.remove('grower')
+                                setTimeout(() => {
+                                row1.classList.add('hidden')
+                                row1.childNodes[1].classList.add('remove')  
+                                }, 500);
+                                setTimeout(() => {
+                                    button3_element.remove()
+                                }, 1000);
+                                    
+                            }
+                            else{
+                                button3_element.remove()
+                                
+                            }
+                                                
+                        })
+                    }
+
+                    if ((list__2.querySelector(`.item${list__2.children.length} .top-button`) && list__2.children.length>3 )){
+                        
+                         btn4 = list__2.querySelector(`.item${list__2.children.length} .top-button`)
+                         btn4_element = list__2.querySelector(`.item${list__2.children.length}`)
+                         let span_box = []
+                         let q_question = list__2.querySelector(`.item${list__2.children.length} .question`)
+                         console.log(q_question.innerHTML);
+                         span_box.push(q_question.innerHTML)
+
+
+                        btn4_element.addEventListener('click', (e)=>{
+                            e.stopPropagation() 
+                            let storer=[]
+                            console.log(rev_solved_accumulator.length);
+                            console.log(rev_solved_accumulator);
+                            
+                            function finding_numeral(span_box ,storer) {
+                                
+                                for (let i = 0; i < rev_solved_accumulator.length; i++) {
+                                    console.log(rev_solved_accumulator[i])
+                                    console.log(span_box);
+
+                                    if(rev_solved_accumulator[i][1] === +span_box){
+                                        storer.push(rev_solved_accumulator[i])
+
+                                        console.log(storer);
+                                        break
+                                    }   
+                                    
+                                }
+                                
+                            }
+                            
+                            finding_numeral(span_box,storer) 
+                            console.log(storer)
+                            writeText6(storer[0])
+                            section_transitioning2()
+
+                            setTimeout(() => {
+                                phase0_1.classList.add('hidden')
+                                phase1.classList.remove('hidden')  
+                            }, 5500);
+                            
+                        })
+
+                        btn4.addEventListener('click',(e)=>{
+                            
+                            e.stopPropagation()  
+                            pointer2.remove()
+                            pointer.remove()
+                            notification.remove() 
+                            subtracted--
+                            stop = true
+                            
+                            
+                            if ((((list__2.children.length)===1 && !(list__2.firstElementChild.classList.contains(`.item3`)) && !(list__2.firstElementChild.classList.contains(`.item2`))))) {
+                                btn4_element.remove()
+                                console.log('hiiiiiiiiiiiiiiiiiiiiiiii');
+                                row2.classList.remove('shorter')
+                                id_row3.style.animation =`reverse-horizon 0.5s linear`
+                                
+
+                                setTimeout(() => {
+                                    section2.classList.add('hidden')
+                                    row2.classList.add('enlarger')
+                                    
+                                }, 300)                  
+                            }
+                            else{
+                                btn4_element.remove()
+
+                                let listed2 = list__2.querySelectorAll('.item')
+                            for (let i = 0; i < listed2.length; i++) {
+
+                                console.log(listed2[i]);
+                                if (listed2[i].classList.contains('hidden')){
+                                    console.log(listed2[i]);
+                                    listed2[i].classList.remove('hidden')
+                                    listed2[i].classList.add('margin_reducer')
+
+                                    break 
+                                }  
+                                  
+                            }
+                            }
+
+                            if (((list1.children.length)===1 && !(list1.firstElementChild.classList.contains(`.item3`)) && !(list1.firstElementChild.classList.contains(`.item2`)))) {
+                                reducer.classList.add('reducer') 
+                                row1.childNodes[1].classList.remove('active')
+                                reducer.classList.remove('grower')
+                                setTimeout(() => {
+                                row1.classList.add('hidden')
+                                row1.childNodes[1].classList.add('remove')  
+                                }, 500);
+                                setTimeout(() => {
+                                    button4_element.remove()
+                                }, 1000);
+                                    
+                            }
+                            else{
+                                button4_element.remove()
+                                
+                                
+                            }
+                                                
+                        })
+
+                    }
+                    
+                }, 300);
+
+            }
+            else{
+                list__2.prepend(made2)
+
+            }
+            if (list__2.querySelector(`.item1 .top-button`)){
+                btn1 = list__2.querySelector(`.item1 .top-button`)
+                btn1_element = list__2.querySelector(`.item1`)
+                let lii = list__2.querySelectorAll('.item')
+                let span_box = []
+                let q_question = list__2.querySelector(`.item1 .question`)
+                console.log(q_question.innerHTML);
+                span_box.push(q_question.innerHTML)
+
+
+                if (marker_3 === 1) {
+                    marker_1 = 0;
+                    marker_2 = 0;
+                    btn1_element.addEventListener('click', (e)=>{
+                        e.stopPropagation() 
+                        let Texts
+                        let storer=[]
+                        console.log(rev_solved_accumulator.length);
+                        console.log(rev_solved_accumulator);
+                        
+                        function finding_numeral(span_box ,storer) {
+                            
+                            for (let i = 0; i < rev_solved_accumulator.length; i++) {
+                                console.log(rev_solved_accumulator[i])
+                                console.log(span_box);
+
+                                if(rev_solved_accumulator[i][1] === +span_box){
+                                    storer.push(rev_solved_accumulator[i])
+
+                                    console.log(storer);
+                                    break
+                                }   
+                                
+                            }
+                            
+                        }
+                        
+                        finding_numeral(span_box,storer) 
+                        console.log(storer)
+                        writeText6(storer[0])
+                        section_transitioning2()
+
+                        setTimeout(() => {
+                            phase0_1.classList.add('hidden')
+                            phase1.classList.remove('hidden')  
+                        }, 5500);
+                        
+                    })
+                }
+                
+
+                
+
+                btn1.addEventListener('click',(e)=>{
+
+
+                    e.stopPropagation()
+                    pointer2.remove()
+                    pointer.remove()    
+                    notification.remove() 
+                    subtracted--
+                    stop = true
+                    btn1_element.remove()
+                    button1_element.remove()
+
+
+                    if (!(list1.children.length)) {
+
+                        row1.childNodes[1].classList.remove('active')
+                       row1.childNodes[1].classList.add('remove')
+                        reducer.classList.remove('grower')
+                        reducer.classList.add('reducer')
+                        
+
+                        setTimeout(() => {
+                            console.log('cancelor did this');
+                            reducer.classList.remove('reducer') 
+                            row1.classList.add('hidden') 
+
+                             
+                        }, 500 );
+                    }
+                    
+
+
+                    
+                    if (!(list__2.children.length)) {
+                        console.log('hiiiiiiiiiiiiiiiiiiiiiiii');
+                        row2.classList.remove('shorter')
+                        id_row3.style.animation =`reverse-horizon 0.5s linear`
+                        setTimeout(() => {
+                            section2.classList.add('hidden')
+                            row2.classList.add('enlarger')
+                            
+                        }, 300)
+
+                        
+                       
+                                        
+                                        
+                    }
+                                        
+                })
+            }
+                 
  
 
-                console.log(list1.children>1);  
-                console.log(list1.children);    
+        
             if (((list1.children.length)>0)){
                 console.log('aleerttttttttttttttttttt');
                 list1.children[0].classList.add('marginer')
@@ -3616,82 +4826,344 @@ function item_creator(info) {
 
 
                     if (list1.querySelector('.item2 .top-button')){
-                        let button2 = list1.querySelector('.item2 .top-button')
-                        let button2_element = list1.querySelector('.item2')
+                        
+
+                        button2 = list1.querySelector(`.item2 .top-button`)
+                        button2_element = list1.querySelector(`.item2`)
+                        let span_box = []
+                        let q_question = list1.querySelector(`.item2 .question`)
+                        console.log(q_question.innerHTML);
+                        span_box.push(q_question.innerHTML)
+
+
+                        if (marker_3_2nd === 1) {
+                            marker_1_2nd = 0;
+                            marker_2_2nd = 0;
+                            button2_element.addEventListener('click', (e)=>{
+                                e.stopPropagation() 
+                                let storer=[]
+                                console.log(rev_solved_accumulator.length);
+                                console.log(rev_solved_accumulator);
+                                
+                                function finding_numeral(span_box ,storer) {
+                                    
+                                    for (let i = 0; i < rev_solved_accumulator.length; i++) {
+                                        console.log(rev_solved_accumulator[i])
+                                        console.log(span_box);
+
+                                        if(rev_solved_accumulator[i][1] === +span_box){
+                                            storer.push(rev_solved_accumulator[i])
+
+                                            console.log(storer);
+                                            break
+                                        }   
+                                        
+                                    }
+                                    
+                                }
+                                
+                                finding_numeral(span_box,storer) 
+                                console.log(storer)
+                                writeText6(storer[0])
+                                section_transitioning2()
+
+                                setTimeout(() => {
+                                    phase0_1.classList.add('hidden')
+                                    phase1.classList.remove('hidden')  
+                                }, 5500);
+                                
+                            })
+                        }
+
+
+
+
                        
                         button2.addEventListener('click',(e)=>{
                             e.stopPropagation() 
-                            
                             stop = true
                             button2_element.remove()
-
-                            if (!(list1.children.length)) {
+                            btn2_element.remove()
+        
+        
+                            let listed2 = list__2.querySelectorAll('.item')
+                                    for (let i = 0; i < listed2.length; i++) {
+        
+                                        console.log(listed2[i]);
+                                        if (listed2[i].classList.contains('hidden')){
+                                            console.log(listed2[i]);
+                                            listed2[i].classList.remove('hidden')
+                                            listed2[i].classList.add('margin_reducer')
+        
+                                            break 
+                                        }  
+                                          
+                                    }
+                            
+        
+                            console.log(list1.children.length);
+        
+                            if (!(list__2.children.length)) {
                                 console.log('hiiiiiiiiiiiiiiiiiiiiiiii');
+                                row2.classList.remove('shorter')
+                                id_row3.style.animation =`reverse-horizon 0.5s linear`
+                                
+        
+                                setTimeout(() => {
+                                    section2.classList.add('hidden')
+                                    row2.classList.add('enlarger')
+                                    
+                                }, 300)
+        
+                            }
+                            if (!(list1.children.length)) {
+        
+                                row1.childNodes[1].classList.remove('active')
+                               row1.childNodes[1].classList.add('remove')
                                 reducer.classList.remove('grower')
                                 reducer.classList.add('reducer')
-                                setTimeout(() => {
-                                    row1.classList.add('hidden')   
-                                }, 500 );
                                 
-    
+        
+                                setTimeout(() => {
+                                    console.log('cancelor did this');
+                                    reducer.classList.remove('reducer') 
+                                    row1.classList.add('hidden') 
+        
+                                     
+                                }, 500 );
+        
+                                
+                                
+        
                             }
-    
+        
                         })
                     }
+
+
+
 
                     if (list1.querySelector('.item3 .top-button')){
-                        let button3 = list1.querySelector('.item3 .top-button')
-                        let button3_element = list1.querySelector('.item3')
-                       
-                        button3.addEventListener('click',(e)=>{
+                        button3 = list1.querySelector(`.item3 .top-button`)
+                        button3_element = list1.querySelector(`.item3`)
+                        let span_box = []
+                        let q_question = list1.querySelector(`.item3 .question`)
+                        console.log(q_question.innerHTML);
+                        span_box.push(q_question.innerHTML)
+
+
+                        if (marker_3_3rd === 1) {
+                            marker_1_3rd = 0;
+                            marker_2_3rd = 0;
+                            button3_element.addEventListener('click', (e)=>{
+                                e.stopPropagation() 
+                                let storer=[]
+                                console.log(rev_solved_accumulator.length);
+                                console.log(rev_solved_accumulator);
+                                
+                                function finding_numeral(span_box ,storer) {
+                                    
+                                    for (let i = 0; i < rev_solved_accumulator.length; i++) {
+                                        console.log(rev_solved_accumulator[i])
+                                        console.log(span_box);
+
+                                        if(rev_solved_accumulator[i][1] === +span_box){
+                                            storer.push(rev_solved_accumulator[i])
+
+                                            console.log(storer);
+                                            break
+                                        }   
+                                        
+                                    }
+                                    
+                                }
+                                
+                                finding_numeral(span_box,storer) 
+                                console.log(storer)
+                                writeText6(storer[0])
+                                section_transitioning2()
+
+                                setTimeout(() => {
+                                    phase0_1.classList.add('hidden')
+                                    phase1.classList.remove('hidden')  
+                                }, 5500);
+                                
+                            })
+                        }
+
+                         button3.addEventListener('click',(e)=>{
                             e.stopPropagation() 
                             stop = true
                             button3_element.remove()
-
-                            if (!(list1.children.length)) {
+                            btn3_element.remove()
+        
+        
+                            let listed2 = list__2.querySelectorAll('.item')
+                                    for (let i = 0; i < listed2.length; i++) {
+        
+                                        console.log(listed2[i]);
+                                        if (listed2[i].classList.contains('hidden')){
+                                            console.log(listed2[i]);
+                                            listed2[i].classList.remove('hidden')
+                                            listed2[i].classList.add('margin_reducer')
+        
+                                            break 
+                                        }  
+                                          
+                                    }
+                            
+        
+                            console.log(list1.children.length);
+        
+                            if (!(list__2.children.length)) {
                                 console.log('hiiiiiiiiiiiiiiiiiiiiiiii');
+                                row2.classList.remove('shorter')
+                                id_row3.style.animation =`reverse-horizon 0.5s linear`
+                                
+        
+                                setTimeout(() => {
+                                    section2.classList.add('hidden')
+                                    row2.classList.add('enlarger')
+                                    
+                                }, 300)
+        
+                            }
+                            if (!(list1.children.length)) {
+        
+                                row1.childNodes[1].classList.remove('active')
+                               row1.childNodes[1].classList.add('remove')
                                 reducer.classList.remove('grower')
                                 reducer.classList.add('reducer')
-                                setTimeout(() => {
-                                    row1.classList.add('hidden')   
-                                }, 500 );
                                 
-    
+        
+                                setTimeout(() => {
+                                    console.log('cancelor did this');
+                                    reducer.classList.remove('reducer') 
+                                    row1.classList.add('hidden') 
+        
+                                     
+                                }, 500 );
+        
+                                
+                                
+        
                             }
-    
-
-                           
+        
                         })
+                       
+                        
                     }
 
-                    if (list1.querySelector(`.item${list1.children.length} .top-button`)){
-                        let button3 = list1.querySelector(`.item${list1.children.length} .top-button`)
-                        console.log(button3);
-                        let button3_element = list1.querySelector(`.item${list1.children.length}`)
-                        console.log(button3);
-                       
-                        button3.addEventListener('click',(e)=>{
-                            e.stopPropagation() 
-                            console.log('cancel _count is' );
-                            stop = true
-                            button3_element.remove()
+                    if (list1.querySelector(`.item${list1.children.length} .top-button`)  && list1.children.length>3){
 
-                            if (!(list1.children.length)) {
-                                console.log('hiiiiiiiiiiiiiiiiiiiiiiii');
-                                reducer.classList.remove('grower')
-                                reducer.classList.add('reducer')
-                                setTimeout(() => {
-                                    row1.classList.add('hidden')   
-                                }, 500 );
+                        
+                         button4 = list1.querySelector(`.item${list1.children.length} .top-button`)
+                         button4_element = list1.querySelector(`.item${list1.children.length}`)
+                         let span_box = []
+                         let q_question = list1.querySelector(`.item${list1.children.length} .question`)
+                         console.log(q_question.innerHTML);
+                         span_box.push(q_question.innerHTML)
+
+
+                        button4_element.addEventListener('click', (e)=>{
+                            e.stopPropagation() 
+                            let storer=[]
+                            console.log(rev_solved_accumulator.length);
+                            console.log(rev_solved_accumulator);
+                            
+                            function finding_numeral(span_box ,storer) {
                                 
+                                for (let i = 0; i < rev_solved_accumulator.length; i++) {
+                                    console.log(rev_solved_accumulator[i])
+                                    console.log(span_box);
+
+                                    if(rev_solved_accumulator[i][1] === +span_box){
+                                        storer.push(rev_solved_accumulator[i])
+
+                                        console.log(storer);
+                                        break
+                                    }   
+                                    
+                                }
                                 
-    
+                            }
+                            
+                            finding_numeral(span_box,storer) 
+                            console.log(storer)
+                            writeText6(storer[0])
+                            section_transitioning2()
+
+                            setTimeout(() => {
+                                phase0_1.classList.add('hidden')
+                                phase1.classList.remove('hidden')  
+                            }, 5500);
+                            
+                        })
+                       
+                        button4.addEventListener('click',(e)=>{
+
+                            e.stopPropagation()
+                            
+                            pointer2.remove()
+                            pointer.remove()
+                            notification.remove() 
+                            subtracted--
+                            console.log('bro, over here bt' );
+                            stop = true
+                            
+                            btn4_element.remove()
+                            let listed2 = list__2.querySelectorAll('.item')
+                            for (let i = 0; i < listed2.length; i++) {
+
+                                console.log(listed2[i]);
+                                if (listed2[i].classList.contains('hidden')){
+                                    console.log(listed2[i]);
+                                    listed2[i].classList.remove('hidden')
+                                    listed2[i].classList.add('margin_reducer')
+
+                                    break 
+                                }  
+                                  
                             }
 
-                            
-    
 
-                           
+
+                            if (((list__2.children.length)===1 && !(list__2.firstElementChild.classList.contains(`.item3`)) && !(list__2.firstElementChild.classList.contains(`.item2`)))) {
+                                console.log('hiiiiiiiiiiiiiiiiiiiiiiii');
+                                row2.classList.remove('shorter')
+                                id_row3.style.animation =`reverse-horizon 0.5s linear`
+                                
+
+                                setTimeout(() => {
+                                    section2.classList.add('hidden')
+                                    row2.classList.add('enlarger')
+                                    
+                                }, 300)
+                                                
+                                                
+                            }
+
+                            if ((list1.children.length)===1 && !(list1.firstElementChild.classList.contains(`.item3`)) && !(list1.firstElementChild.classList.contains(`.item2`))) {
+                                console.log('it worked ' );
+                                
+                                reducer.classList.add('reducer') 
+                                row1.childNodes[1].classList.remove('active')
+                                reducer.classList.remove('grower')
+                                setTimeout(() => {
+                                row1.classList.add('hidden')
+                                row1.childNodes[1].classList.add('remove')  
+                                }, 500);
+                                setTimeout(() => {
+                                    button4_element.remove()
+                                }, 1000);
+                                    
+                            }
+                            else{
+                                button4_element.remove()
+                                
+                            }
+                        
+      
                         })
                     }
                     
@@ -3704,26 +5176,110 @@ function item_creator(info) {
             }  
             
             if (list1.querySelector('.item1 .top-button')){
-                let button1 = list1.querySelector('.item1 .top-button')
-                let button1_element = list1.querySelector('.item1')
+            
+                button1 = list1.querySelector(`.item1 .top-button`)
+                button1_element = list1.querySelector(`.item1`)
+                let span_box = []
+                let q_question = list1.querySelector(`.item1 .question`)
+                console.log(q_question.innerHTML);
+                span_box.push(q_question.innerHTML)
+
+
+                if (marker_3 === 1) {
+                    marker_1 = 0;
+                    marker_2 = 0;
+                    button1_element.addEventListener('click', (e)=>{
+                        e.stopPropagation() 
+                        let storer=[]
+                        console.log(rev_solved_accumulator.length);
+                        console.log(rev_solved_accumulator);
+                        
+                        function finding_numeral(span_box ,storer) {
+                            
+                            for (let i = 0; i < rev_solved_accumulator.length; i++) {
+                                console.log(rev_solved_accumulator[i])
+                                console.log(span_box);
+
+                                if(rev_solved_accumulator[i][1] === +span_box){
+                                    storer.push(rev_solved_accumulator[i])
+
+                                    console.log(storer);
+                                    break
+                                }   
+                                
+                            }
+                            
+                        }
+                        
+                        finding_numeral(span_box,storer) 
+                        console.log(storer)
+                        writeText6(storer[0])
+                        section_transitioning2()
+
+                        setTimeout(() => {
+                            phase0_1.classList.add('hidden')
+                            phase1.classList.remove('hidden')  
+                        }, 5500);
+                        
+                    })
+                }
                
-                button1.addEventListener('click',(e)=>{
+                 button1.addEventListener('click',(e)=>{
                     e.stopPropagation() 
                     stop = true
                     button1_element.remove()
+                    btn1_element.remove()
+
+
+                    let listed2 = list__2.querySelectorAll('.item')
+                            for (let i = 0; i < listed2.length; i++) {
+
+                                console.log(listed2[i]);
+                                if (listed2[i].classList.contains('hidden')){
+                                    console.log(listed2[i]);
+                                    listed2[i].classList.remove('hidden')
+                                    listed2[i].classList.add('margin_reducer')
+
+                                    break 
+                                }  
+                                  
+                            }
+                    
 
                     console.log(list1.children.length);
-                    if (!(list1.children.length)) {
-                        console.log('hiiiiiiiiiiiiiiiiiiiiiiii');
-                        reducer.classList.remove('grower')
 
-                        reducer.classList.add('reducer')
+                    if (!(list__2.children.length)) {
+                        console.log('hiiiiiiiiiiiiiiiiiiiiiiii');
+                        row2.classList.remove('shorter')
+                        id_row3.style.animation =`reverse-horizon 0.5s linear`
+                        
 
                         setTimeout(() => {
-                            row1.classList.add('hidden')   
+                            section2.classList.add('hidden')
+                            row2.classList.add('enlarger')
+                            
+                        }, 300)
+
+                    }
+                    if (!(list1.children.length)) {
+
+                        row1.childNodes[1].classList.remove('active')
+                       row1.childNodes[1].classList.add('remove')
+                        reducer.classList.remove('grower')
+                        reducer.classList.add('reducer')
+                        
+
+                        setTimeout(() => {
+                            console.log('cancelor did this');
+                            reducer.classList.remove('reducer') 
+                            row1.classList.add('hidden') 
+
+                             
                         }, 500 );
+
                         
                         
+
                     }
 
                 })
@@ -3735,7 +5291,8 @@ function item_creator(info) {
         
     }
 
-    
+    Number_of_items(list__2.children.length+1)
+ 
     
 
 }
@@ -3928,6 +5485,7 @@ function notif(signal=1) {
         setTimeout(() => {
             notification.classList.remove('hidden')
             signaler='now'
+
             
         }, signal[1]);
 
@@ -3986,7 +5544,7 @@ form.addEventListener('submit', (e)=>{
 
 
     solvings()
-    Number_of_items(rev_solved_accumulator.length)
+    
 
 
     setTimeout(() => {
@@ -4004,7 +5562,10 @@ form.addEventListener('submit', (e)=>{
     
     
     item_creator(solved)
+    
     notif(displayed)
+    activity_listener()
+    activity_updater()   
 
     setTimeout(() => {
         console.log(list__2.children);
@@ -4013,7 +5574,6 @@ form.addEventListener('submit', (e)=>{
     }, 1000);
     
     
-
 })
 
 

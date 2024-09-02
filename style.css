@@ -983,7 +983,7 @@ html.dark .section3 .heading{
 
 
   .row2 form {
-    width: 70%;
+    width: 80%;
 
     margin-top: 100px;
 
@@ -1016,7 +1016,7 @@ html.dark .section3 .heading{
   }
 
   .row2 .ans{
-    margin-top: 25px;
+    margin-top: 20px;
   
     
 
@@ -1264,14 +1264,14 @@ html.dark .section3 .heading{
   .button-container{
     position: absolute;
     display: flex;
-    bottom: 20px;
+    bottom: 15px;
     width: 50%;
     min-width: 315px;
     /* background-color: aqua; */
    
     align-items: center;
     justify-content: center;
-    padding: 20px 0;
+    padding: 0 0;
   }
 
 
